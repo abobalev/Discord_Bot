@@ -1,0 +1,135 @@
+<form method="post">
+    <input type="radio" name="variant" value="Discord" /> Исполнители <br />
+    <input type="radio" name="variant" value="genre" /> Жанры <br />
+    <input type="radio" name="variant" value="songs" /> Песни <br />
+    <input type="submit" />
+</form>
+ 
+<?php
+ 
+if( isset( $_POST['variant'] ) )
+{
+    switch( $_POST['variant'] )
+    {
+        case 'Discord':
+            echo 'Таблица исполнителей [Исполнители]';
+            include('./load_Discord.php');
+            break;
+        case 'genre':
+            echo 'Таблица жанров [Жанры]';
+            include('./load_genre.php');
+            break;
+        case 'songs':
+            echo 'Таблица песен [Песни]';
+            include('./load_songs.php');
+            break;
+    }
+}
+else
+{
+    echo 'Вариант не выбран!!(('; 
+}
+
+?>
+  </body>
+</html>
+
+                          load_Discord
+<?php
+
+$host= "db4free.net";
+$user= "sql38_08";
+$pass= "vbvb123wskl";
+$db=   "sql38_08";
+
+$conn = mysqli_connect($host, $user, $pass, $db) 
+    or die("Ошибка " . mysqli_error($conn));
+$query="SELECT * FROM Discord";
+$res= mysqli_query($conn,$query);
+$result = mysqli_query($conn, $query) or die("Error" . mysqli_error($conn));
+if($result)
+{
+    $rows=mysqli_num_rows($result);
+    echo"<table><tr><th> D_executor </th><th> D_genre </th><th> D_songs  </th></tr>";
+    
+    while($row=mysqli_fetch_row($result))
+    {
+        echo "<tr>";
+        for($i=0;$i<2;$i++)
+            echo "<td> $row[$i] </td>";
+        echo "</tr>";
+    }
+    echo "</table>";
+}
+else
+{
+    echo "подключение к базе данных не выполнено!!";
+}
+mysqli_close($conn);
+?>
+                          load_genre.php
+<?php
+
+$host= "db4free.net";
+$user= "sql38_08";
+$pass= "vbvb123wskl";
+$db=   "sql38_08";
+
+$conn = mysqli_connect($host, $user, $pass, $db) 
+    or die("Ошибка " . mysqli_error($conn));
+$query="SELECT * FROM genre";
+$res= mysqli_query($conn,$query);
+$result = mysqli_query($conn, $query) or die("Error" . mysqli_error($conn));
+if($result)
+{
+    $rows=mysqli_num_rows($result);
+    echo"<table><tr><th> genre_id </th><th> genre_name </th></tr>";
+    while($row=mysqli_fetch_row($result))
+    {
+        echo "<tr>";
+        for($i=0;$i<2;$i++)
+            echo "<td> $row[$i] </td>";
+        echo "</tr>";
+    }
+    echo "</table>";
+}
+else
+{
+    echo "подключение к базе данных не выполнено!!";
+}
+mysqli_close($conn);
+?>
+
+                          load_songs.php
+<?php
+
+$host= "db4free.net";
+$user= "sql38_08";
+$pass= "vbvb123wskl";
+$db=   "sql38_08";
+
+$conn = mysqli_connect($host, $user, $pass, $db) 
+    or die("Ошибка " . mysqli_error($conn));
+$query="SELECT * FROM songs";
+$res= mysqli_query($conn,$query);
+$result = mysqli_query($conn, $query) or die("Error" . mysqli_error($conn));
+if($result)
+{
+    $rows=mysqli_num_rows($result);
+    echo"<table><tr><th> songs_id </th><th> songs_name  </th></tr>";
+    while($row=mysqli_fetch_row($result))
+    {
+        echo "<tr>";
+        for($i=0;$i<2;$i++)
+            echo "<td> $row[$i] </td>";
+        echo "</tr>";
+    }
+    echo "</table>";
+}
+else
+{
+    echo "подключение к базе данных не выполнено!!";
+}
+mysqli_close($conn);
+?> 
+Вывод: благодаря этой работе я улучшил свое понимание языка PHP.
